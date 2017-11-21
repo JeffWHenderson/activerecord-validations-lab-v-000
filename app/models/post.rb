@@ -7,10 +7,10 @@ class Post < ActiveRecord::Base
   validate :is_clickbait? # regex version (/Won't Believe|Secret|Top [\d]| Guess/)
 
   def is_clickbait?
-    if !(title && ["Won't Believe", "Secret", "Top", "Guess"].any? {|word| title.include?(word)})
+    if !%w(Won't_Believe Secret Top_(/\d/) Guess).map {|w| w.gsub("_", " ")}.include?(:title) && title #!(title && ["Won't Believe", "Secret", "Top", "Guess"].any? {|word| title.include?(word)})
       errors.add(:clickbait, "must be clickbait")
     end
   end
 
 end
- !%w(Won't_Believe Secret Top_(/\d/) Guess).map {|w| w.gsub("_", " ")}.include?(title) && title
+ #!%w(Won't_Believe Secret Top_(/\d/) Guess).map {|w| w.gsub("_", " ")}.include?(title) && title
