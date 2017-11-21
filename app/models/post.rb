@@ -13,3 +13,4 @@ class Post < ActiveRecord::Base
   end
 
 end
+ %w(Won't_Believe Secret Top_[\d] Guess).map {|w| w.gsub("_", " ")}
