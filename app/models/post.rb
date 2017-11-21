@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   validates :summary, length: { maximum: 250 }
 
   validates :category, inclusion: { in: %w(Fiction Non-Fiction)}
-  validate :is_clickbait? # regex version (/Won't Believe|Secret|Top [\d]| Guess/)
+  validate :is_clickbait?
 
   def is_clickbait?
     if !(title && ["Won't Believe", "Secret", "Top", "Guess"].any? {|word| title.include?(word)})
@@ -13,4 +13,6 @@ class Post < ActiveRecord::Base
   end
 
 end
+
  #!%w(Won't_Believe Secret Top_(/\d/) Guess).map {|w| w.gsub("_", " ")}.include?(title) && title
+# regex version (/Won't Believe|Secret|Top [\d]| Guess/)
